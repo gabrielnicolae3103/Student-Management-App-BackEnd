@@ -25,7 +25,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) {
         User user;
         user = userService.findByUserName(userName);
         HashSet<UserType> roles = new HashSet<>();
