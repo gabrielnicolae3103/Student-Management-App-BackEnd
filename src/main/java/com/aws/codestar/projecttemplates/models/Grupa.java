@@ -18,7 +18,7 @@ public class Grupa {
     private int id;
 
     @JoinColumn(name = "seria")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Seria seria;
 
     @NotNull
@@ -26,7 +26,7 @@ public class Grupa {
     private int number;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "grupa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "grupa", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Student student;
 
     public Grupa() {

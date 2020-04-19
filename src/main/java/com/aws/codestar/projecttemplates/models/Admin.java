@@ -17,7 +17,7 @@ public class Admin implements Serializable {
     @NotNull
     long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
 

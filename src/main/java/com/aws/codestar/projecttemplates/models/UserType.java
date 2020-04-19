@@ -23,7 +23,7 @@ public class UserType {
 
 
     @JsonIgnore
-    @OneToOne(mappedBy = "userType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userType", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private User user;
 
     public UserType() {
