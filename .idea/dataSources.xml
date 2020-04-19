@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="proiectip@proiectip.cpow7btwaxat.eu-central-1.rds.amazonaws.com" uuid="bd2239fb-c4a1-4bb3-8ed1-536c112e194d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://proiectip.cpow7btwaxat.eu-central-1.rds.amazonaws.com:3306/proiectip</jdbc-url>
+    </data-source>
+  </component>
+</project>
