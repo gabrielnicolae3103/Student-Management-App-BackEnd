@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class Student {
 
     @JoinColumn(name = "user_id")
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
 
     @NotNull
@@ -33,17 +33,17 @@ public class Student {
     private long cnp;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty")
     private Faculty faculty;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "major")
     private Major major;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "grupa")
     private Grupa grupa;
 

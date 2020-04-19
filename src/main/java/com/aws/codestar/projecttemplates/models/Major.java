@@ -22,7 +22,7 @@ public class Major {
     private String name;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "major", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "major", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Student student;
 
     public Major() {

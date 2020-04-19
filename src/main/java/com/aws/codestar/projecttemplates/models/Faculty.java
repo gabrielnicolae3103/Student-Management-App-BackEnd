@@ -20,7 +20,7 @@ public class Faculty implements HibernateObject {
     private String name;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "faculty", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "faculty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Student student;
 
     public Faculty() {
