@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "seria")
@@ -12,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class Seria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "id")
     private int id;
@@ -22,10 +24,18 @@ public class Seria {
     private String name;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "grupa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Student student;
+    @OneToMany(mappedBy = "seria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Grupa> grupe = new ArrayList<>();
 
     public Seria() {
+    }
+
+    public List<Grupa> getGrupe() {
+        return grupe;
+    }
+
+    public void setGrupe(List<Grupa> grupe) {
+        this.grupe = grupe;
     }
 
     public int getId() {
@@ -42,13 +52,5 @@ public class Seria {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 }

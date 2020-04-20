@@ -22,10 +22,6 @@ public class FacultyController {
 
     HibernateHelper<FacultyRepository> hibernateHelper;
 
-    public FacultyController() {
-        this.hibernateHelper = new HibernateHelper<>(facultyRepository);
-    }
-
     @GetMapping
     List<Faculty> findAll() {
         return facultyRepository.findAll();
@@ -33,6 +29,8 @@ public class FacultyController {
 
     @GetMapping(value = "/{id}")
     ResponseEntity<Faculty> findById(@PathVariable(value = "id") int id) {
+        if(hibernateHelper == null)
+            hibernateHelper = new HibernateHelper<>(facultyRepository);
         Faculty faculty = (Faculty) hibernateHelper.findById(id);
         if(faculty == null)
             return ResponseEntity.notFound().build();
@@ -41,6 +39,8 @@ public class FacultyController {
 
     @PostMapping
     ResponseEntity<Faculty> saveNewFaculty(@RequestBody Faculty faculty) {
+        if(hibernateHelper == null)
+            hibernateHelper = new HibernateHelper<>(facultyRepository);
         Faculty response = (Faculty) hibernateHelper.saveToRepository(faculty);
         if(response == null)
             return ResponseEntity.badRequest().body(faculty);

@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @NotNull
     int id;
@@ -24,7 +24,7 @@ public class User {
     @Column(name = "password")
     String password;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type")
     UserType userType;
 

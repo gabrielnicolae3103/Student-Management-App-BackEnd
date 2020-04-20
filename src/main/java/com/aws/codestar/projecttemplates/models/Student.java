@@ -29,21 +29,10 @@ public class Student {
     @NotNull
     @Column(name = "cnp")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long cnp;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty")
-    private Faculty faculty;
-
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "major")
-    private Major major;
-
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "grupa")
     private Grupa grupa;
 
@@ -80,22 +69,6 @@ public class Student {
 
     public void setCnp(long cnp) {
         this.cnp = cnp;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
-
-    public Major getMajor() {
-        return major;
-    }
-
-    public void setMajor(Major major) {
-        this.major = major;
     }
 
     public Grupa getGrupa() {

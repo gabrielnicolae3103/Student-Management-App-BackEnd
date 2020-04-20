@@ -18,15 +18,12 @@ public class HibernateHelper<T> {
 
     public HibernateObject saveToRepository(HibernateObject object) {
         HibernateObject objectToFind = findById(object.getId());
-        System.out.println(object.getId());
-        System.out.println(objectToFind);
         /* daca exista deja */
         if(objectToFind != null)
             return null;
         HibernateObject saved = repository.save(object);
-        saved.setId(object.getId());
-        repository.flush();
-        System.out.println(saved.getId());
+        //saved.setId(object.getId());
+        //saved = repository.saveAndFlush(saved);
         return saved;
     }
 }

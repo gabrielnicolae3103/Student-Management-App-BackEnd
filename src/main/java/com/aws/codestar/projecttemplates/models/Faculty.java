@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "faculty")
@@ -19,11 +21,18 @@ public class Faculty implements HibernateObject {
     @Column(name = "name")
     private String name;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "faculty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Student student;
+    @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Major> majors = new ArrayList<>();
 
     public Faculty() {
+    }
+
+    public List<Major> getMajors() {
+        return majors;
+    }
+
+    public void setMajors(List<Major> majors) {
+        this.majors = majors;
     }
 
     public long getId() {
@@ -40,13 +49,5 @@ public class Faculty implements HibernateObject {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 }
