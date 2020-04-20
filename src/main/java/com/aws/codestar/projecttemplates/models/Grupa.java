@@ -11,13 +11,12 @@ import java.util.List;
 @Entity
 @Table(name = "grupa")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Grupa {
+public class Grupa implements HibernateObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @JoinColumn(name = "seria")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,7 +30,6 @@ public class Grupa {
     @OneToMany(mappedBy = "grupa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Student> students = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "major")
     private Major major;
@@ -55,11 +53,11 @@ public class Grupa {
         this.students = students;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

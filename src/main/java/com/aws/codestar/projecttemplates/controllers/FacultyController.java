@@ -17,9 +17,6 @@ public class FacultyController {
     @Autowired
     FacultyRepository facultyRepository;
 
-    @Autowired
-    FacultyService facultyService;
-
     HibernateHelper<FacultyRepository> hibernateHelper;
 
     @GetMapping

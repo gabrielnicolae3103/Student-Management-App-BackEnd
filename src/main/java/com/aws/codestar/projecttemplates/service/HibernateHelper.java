@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public class HibernateHelper<T> {
 
-
     private JpaRepository<HibernateObject, Long> repository;
 
     public HibernateHelper(T repository) {
@@ -21,9 +20,6 @@ public class HibernateHelper<T> {
         /* daca exista deja */
         if(objectToFind != null)
             return null;
-        HibernateObject saved = repository.save(object);
-        //saved.setId(object.getId());
-        //saved = repository.saveAndFlush(saved);
-        return saved;
+        return repository.save(object);
     }
 }
