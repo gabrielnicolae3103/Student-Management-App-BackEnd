@@ -23,6 +23,7 @@ public class Major {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "major", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Grupa> grupe = new ArrayList<>();
 

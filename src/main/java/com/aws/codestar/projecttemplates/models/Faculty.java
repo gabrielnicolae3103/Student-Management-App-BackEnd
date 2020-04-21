@@ -21,6 +21,7 @@ public class Faculty implements HibernateObject {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Major> majors = new ArrayList<>();
 
