@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController extends HibernateObjectController<User> {
     @Autowired
     UserRepository userRepository;
 

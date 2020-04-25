@@ -1,46 +1,32 @@
 package com.aws.codestar.projecttemplates.controllers;
 
 import com.aws.codestar.projecttemplates.models.Faculty;
+import com.aws.codestar.projecttemplates.models.HibernateObject;
 import com.aws.codestar.projecttemplates.repositories.FacultyRepository;
+import com.aws.codestar.projecttemplates.repositories.GrupaRepository;
 import com.aws.codestar.projecttemplates.service.FacultyService;
 import com.aws.codestar.projecttemplates.service.HibernateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/faculties")
-public class FacultyController {
+public class FacultyController extends  HibernateObjectController<Faculty> {
 
     @Autowired
     FacultyRepository facultyRepository;
 
-    HibernateHelper<FacultyRepository> hibernateHelper;
+    @Autowired
+    FacultyService facultyService;
 
-    @GetMapping
-    List<Faculty> findAll() {
-        return facultyRepository.findAll();
+    @PostConstruct
+    public void init(){
+        this.init(facultyService, facultyRepository);
     }
 
-    @GetMapping(value = "/{id}")
-    ResponseEntity<Faculty> findById(@PathVariable(value = "id") int id) {
-        if(hibernateHelper == null)
-            hibernateHelper = new HibernateHelper<>(facultyRepository);
-        Faculty faculty = (Faculty) hibernateHelper.findById(id);
-        if(faculty == null)
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(faculty);
-    }
 
-    @PostMapping
-    ResponseEntity<Faculty> saveNewFaculty(@RequestBody Faculty faculty) {
-        if(hibernateHelper == null)
-            hibernateHelper = new HibernateHelper<>(facultyRepository);
-        Faculty response = (Faculty) hibernateHelper.saveToRepository(faculty);
-        if(response == null)
-            return ResponseEntity.badRequest().body(faculty);
-        return ResponseEntity.ok(response);
-    }
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "student")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Student {
+public class Student implements HibernateObject {
 
     @JoinColumn(name = "user_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -77,5 +77,15 @@ public class Student {
 
     public void setGrupa(Grupa grupa) {
         this.grupa = grupa;
+    }
+
+    @Override
+    public long getId() {
+        return getUser().getId();
+    }
+
+    @Override
+    public void setId(long id) {
+        getUser().setId(id);
     }
 }

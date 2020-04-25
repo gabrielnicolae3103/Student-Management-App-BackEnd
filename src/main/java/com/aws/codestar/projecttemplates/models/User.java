@@ -4,19 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Table(name = "user")
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User {
+public class User implements HibernateObject{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NotNull
-    int id;
+    long id;
 
     @Column(name = "login")
     String login;
@@ -99,11 +96,11 @@ public class User {
         this.admin = admin;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

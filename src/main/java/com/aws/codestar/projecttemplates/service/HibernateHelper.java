@@ -1,25 +1,33 @@
 package com.aws.codestar.projecttemplates.service;
 
 import com.aws.codestar.projecttemplates.models.HibernateObject;
+import org.hibernate.Session;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public class HibernateHelper<T> {
+public class HibernateHelper<T extends HibernateObject> {
 
-    private JpaRepository<HibernateObject, Long> repository;
+    private final JpaRepository<T, Long> repository;
 
-    public HibernateHelper(T repository) {
-        this.repository = (JpaRepository<HibernateObject, Long>)repository;
+    public HibernateHelper(JpaRepository<T, Long> repository) {
+        this.repository = repository;
     }
 
-    public HibernateObject findById(long id) {
+    public T findById(long id) {
         return repository.findById(id).orElse(null);
     }
 
-    public HibernateObject saveToRepository(HibernateObject object) {
-        HibernateObject objectToFind = findById(object.getId());
+    public T saveToRepository(T object) {
+        T objectToFind = findById(object.getId());
         /* daca exista deja */
         if(objectToFind != null)
             return null;
         return repository.save(object);
+    }
+
+    public T update(long id, T object) {
+        if(id != object.getId())
+            return null;
+        return repository.saveAndFlush(object);
     }
 }
