@@ -2,10 +2,12 @@ package com.aws.codestar.projecttemplates.controllers;
 
 import com.aws.codestar.projecttemplates.models.User;
 import com.aws.codestar.projecttemplates.repositories.UserRepository;
+import com.aws.codestar.projecttemplates.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,14 +17,12 @@ public class UserController extends HibernateObjectController<User> {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping
-    List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
+    @Autowired
+    UserService userService;
 
-    @PostMapping
-    User newUser(@RequestBody User user) {
-        return userRepository.save(user);
+    @PostConstruct
+    public void init(){
+        this.init(userService, userRepository);
     }
 
     @GetMapping("/login/{login}")

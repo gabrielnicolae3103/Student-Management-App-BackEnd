@@ -80,6 +80,7 @@ public class Student implements HibernateObject {
     }
 
     @Override
+    @JsonIgnore
     public long getId() {
         return getUser().getId();
     }
