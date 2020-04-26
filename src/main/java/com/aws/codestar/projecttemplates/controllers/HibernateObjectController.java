@@ -1,6 +1,5 @@
 package com.aws.codestar.projecttemplates.controllers;
 
-import com.aws.codestar.projecttemplates.models.Faculty;
 import com.aws.codestar.projecttemplates.models.HibernateObject;
 import com.aws.codestar.projecttemplates.service.HibernateHelper;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-@RestController
 public class HibernateObjectController<T extends HibernateObject> {
 
     HibernateHelper<T> service;
@@ -30,7 +28,7 @@ public class HibernateObjectController<T extends HibernateObject> {
 
     @GetMapping(value = "/{id}")
     ResponseEntity<T> findById(@PathVariable(value = "id") int id) {
-        T hibernateObject = (T) service.findById(id);
+        T hibernateObject = service.findById(id);
         if(hibernateObject == null)
             return ResponseEntity.notFound().build();
         return ok(hibernateObject);

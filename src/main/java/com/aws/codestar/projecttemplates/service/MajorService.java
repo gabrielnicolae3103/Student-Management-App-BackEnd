@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MajorService extends HibernateHelper<Major> {
 
+    @Autowired
     private MajorRepository majorRepository;
 
-    @Autowired
     public MajorService(MajorRepository majorRepository) {
         super(majorRepository);
     }
