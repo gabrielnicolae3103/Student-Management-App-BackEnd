@@ -11,13 +11,12 @@ import java.util.List;
 @Entity
 @Table(name = "seria")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Seria {
+public class Seria implements HibernateObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @NotNull
     @Column(name = "name")
@@ -38,11 +37,11 @@ public class Seria {
         this.grupe = grupe;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
