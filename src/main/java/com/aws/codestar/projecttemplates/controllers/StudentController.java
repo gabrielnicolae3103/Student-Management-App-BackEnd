@@ -42,4 +42,10 @@ public class StudentController extends HibernateObjectController<Student> {
         return ResponseEntity.ok(updatedStudent);
     }
 
+    @GetMapping(value = "/username/{username}")
+    ResponseEntity<Student> getByUsername(@PathVariable(value = "username") String username) {
+        if(!studentRepository.existsStudentByUserLogin(username))
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(studentRepository.findStudentByUserLogin(username));
+    }
 }
