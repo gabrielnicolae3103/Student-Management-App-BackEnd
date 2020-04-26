@@ -25,7 +25,19 @@ public class Faculty implements HibernateObject {
     @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Major> majors = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "faculty", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Secretary> secretaries = new ArrayList<>();
+
     public Faculty() {
+    }
+
+    public List<Secretary> getSecretaries() {
+        return secretaries;
+    }
+
+    public void setSecretaries(List<Secretary> secretaries) {
+        this.secretaries = secretaries;
     }
 
     public List<Major> getMajors() {
