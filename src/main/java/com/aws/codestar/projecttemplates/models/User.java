@@ -1,15 +1,13 @@
 package com.aws.codestar.projecttemplates.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Table(name = "user")
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User implements HibernateObject, Serializable {
+public class User implements HibernateObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,14 +35,6 @@ public class User implements HibernateObject, Serializable {
 
     @Column(name = "phone_number")
     long phoneNumber;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Student student;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    Admin admin;
 
     public User() {
     }
@@ -79,22 +69,6 @@ public class User implements HibernateObject, Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Admin getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
     }
 
     public long getId() {

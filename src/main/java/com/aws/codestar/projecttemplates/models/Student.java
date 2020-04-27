@@ -2,20 +2,22 @@ package com.aws.codestar.projecttemplates.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.validator.constraints.CodePointLength;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "student")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student implements HibernateObject {
 
-    @JoinColumn(name = "user_id")
+    @Id
+    @Column(name = "user_id")
+    @JsonIgnore
+    private long id;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @MapsId
     private User user;
 
     @NotNull

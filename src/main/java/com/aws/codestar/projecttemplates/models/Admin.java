@@ -1,33 +1,33 @@
 package com.aws.codestar.projecttemplates.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "admin")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Admin implements Serializable {
+public class Admin implements HibernateObject {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    long id;
+    @Column(name = "user_id")
+    @JsonIgnore
+    private long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    User user;
+    @MapsId
+    private User user;
 
     public Admin() {
     }
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(long id) {
         this.id = id;
     }
