@@ -45,6 +45,7 @@ public class Secretary implements HibernateObject, Serializable {
 
 
     @Override
+    @JsonIgnore
     public long getId() {
         return id;
     }

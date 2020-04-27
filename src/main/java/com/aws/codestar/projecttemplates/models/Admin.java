@@ -23,10 +23,13 @@ public class Admin implements HibernateObject, Serializable {
     public Admin() {
     }
 
+    @Override
+    @JsonIgnore
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(long id) {
         this.id = id;
     }
