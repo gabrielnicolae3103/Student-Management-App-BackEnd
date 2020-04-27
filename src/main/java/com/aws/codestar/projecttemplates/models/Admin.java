@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "admin")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Admin implements HibernateObject {
+public class Admin implements HibernateObject, Serializable {
 
     @Id
     @Column(name = "user_id")
@@ -22,12 +23,10 @@ public class Admin implements HibernateObject {
     public Admin() {
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

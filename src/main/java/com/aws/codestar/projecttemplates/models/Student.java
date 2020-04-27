@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "student")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Student implements HibernateObject {
+public class Student implements HibernateObject, Serializable {
 
     @Id
     @Column(name = "user_id")
@@ -30,7 +31,6 @@ public class Student implements HibernateObject {
 
     @NotNull
     @Column(name = "cnp")
-    @Id
     private long cnp;
 
     @NotNull
@@ -84,11 +84,12 @@ public class Student implements HibernateObject {
     @Override
     @JsonIgnore
     public long getId() {
-        return getUser().getId();
+        return id;
     }
 
     @Override
     public void setId(long id) {
-        getUser().setId(id);
+        this.id = id;
     }
+
 }
