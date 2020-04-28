@@ -12,18 +12,13 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Student implements HibernateObject, Serializable {
 
-    @Id
-    @Column(name = "user_id")
-    @JsonIgnore
-    private long id;
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull
     @Column(name = "student_identification_number")
-    private int sin;
+    @Id
+    private long sin;
 
     @NotNull
     @Column(name = "father_initial")
@@ -49,11 +44,11 @@ public class Student implements HibernateObject, Serializable {
         this.user = user;
     }
 
-    public int getSin() {
+    public long getSin() {
         return sin;
     }
 
-    public void setSin(int sin) {
+    public void setSin(long sin) {
         this.sin = sin;
     }
 
@@ -84,12 +79,12 @@ public class Student implements HibernateObject, Serializable {
     @Override
     @JsonIgnore
     public long getId() {
-        return id;
+        return getUser().getId();
     }
 
     @Override
     public void setId(long id) {
-        this.id = id;
+        getUser().setId(id);
     }
 
 }

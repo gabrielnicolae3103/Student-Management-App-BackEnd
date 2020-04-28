@@ -2,6 +2,7 @@ package com.aws.codestar.projecttemplates.controllers;
 
 import com.aws.codestar.projecttemplates.models.Secretary;
 import com.aws.codestar.projecttemplates.repositories.SecretaryRepository;
+import com.aws.codestar.projecttemplates.repositories.UserRepository;
 import com.aws.codestar.projecttemplates.service.SecretaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ public class SecretaryController extends HibernateObjectController<Secretary> {
     @Autowired
     private SecretaryService secretaryService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostConstruct
     public void init() {
         init(secretaryService, secretaryRepository);
@@ -30,7 +34,7 @@ public class SecretaryController extends HibernateObjectController<Secretary> {
                                      @RequestBody Secretary secretary) {
         Secretary updatedSecretary = secretaryService.update(id, secretary);
 
-        if(!secretaryRepository.existsById(id)) {
+        if(!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         if(updatedSecretary == null)

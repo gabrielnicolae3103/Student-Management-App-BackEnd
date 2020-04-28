@@ -8,10 +8,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecretaryService extends HibernateHelper<Secretary> {
 
-    private SecretaryRepository secretaryRepository;
-
     @Autowired
+    SecretaryRepository secretaryRepository;
+
     public SecretaryService(SecretaryRepository secretaryRepository) {
         super(secretaryRepository);
+    }
+
+    @Override
+    public Secretary findById(long id) {
+        if(!secretaryRepository.existsSecretaryByUserId(id))
+            return null;
+        return secretaryRepository.findSecretaryByUserId(id);
     }
 }

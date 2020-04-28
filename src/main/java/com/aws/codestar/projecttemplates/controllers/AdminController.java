@@ -2,6 +2,7 @@ package com.aws.codestar.projecttemplates.controllers;
 
 import com.aws.codestar.projecttemplates.models.Admin;
 import com.aws.codestar.projecttemplates.repositories.AdminRepository;
+import com.aws.codestar.projecttemplates.repositories.UserRepository;
 import com.aws.codestar.projecttemplates.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,13 @@ public class AdminController extends HibernateObjectController<Admin> {
     AdminService adminService;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     public AdminController(AdminRepository adminRepository, AdminService adminService) {
         init(adminService, adminRepository);
+        this.adminRepository = adminRepository;
+        this.adminService = adminService;
     }
 
     @Override
@@ -25,7 +31,7 @@ public class AdminController extends HibernateObjectController<Admin> {
                                    @RequestBody Admin admin) {
         Admin adminUpdated = adminService.update(id, admin);
 
-        if(!adminRepository.existsById(id)) {
+        if(!userRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         if(adminUpdated == null)

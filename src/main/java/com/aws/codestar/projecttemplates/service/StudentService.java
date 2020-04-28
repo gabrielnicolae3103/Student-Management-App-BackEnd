@@ -14,4 +14,11 @@ public class StudentService extends HibernateHelper<Student> {
     public StudentService(StudentRepository studentRepository) {
         super(studentRepository);
     }
+
+    @Override
+    public Student findById(long id) {
+        if(!studentRepository.existsStudentByUserId(id))
+            return null;
+        return studentRepository.findStudentByUserId(id);
+    }
 }

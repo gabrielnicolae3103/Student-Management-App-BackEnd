@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface SecretaryRepository extends JpaRepository<Secretary, Long> {
     Secretary findSecretaryByUserLogin(String login);
     Boolean existsSecretaryByUserLogin(String login);
+    Secretary findSecretaryByUserId(long id);
+    Boolean existsSecretaryByUserId(long id);
 }

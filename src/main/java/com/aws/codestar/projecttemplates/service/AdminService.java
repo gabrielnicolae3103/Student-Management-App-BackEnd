@@ -9,7 +9,16 @@ import org.springframework.stereotype.Service;
 public class AdminService extends HibernateHelper<Admin> {
 
     @Autowired
+    AdminRepository adminRepository;
+
     public AdminService(AdminRepository adminRepository) {
         super(adminRepository);
+    }
+
+    @Override
+    public Admin findById(long id) {
+        if(!adminRepository.existsAdminByUserId(id))
+            return null;
+        return adminRepository.findAdminByUserId(id);
     }
 }

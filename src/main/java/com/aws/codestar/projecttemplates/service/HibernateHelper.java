@@ -1,8 +1,6 @@
 package com.aws.codestar.projecttemplates.service;
 
 import com.aws.codestar.projecttemplates.models.HibernateObject;
-import org.hibernate.Session;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public class HibernateHelper<T extends HibernateObject> {
@@ -26,8 +24,8 @@ public class HibernateHelper<T extends HibernateObject> {
     }
 
     public T update(long id, T object) {
-        if(id != object.getId())
-            return null;
+        //if(id != object.getId())
+        //    return null;
         return repository.saveAndFlush(object);
     }
 }

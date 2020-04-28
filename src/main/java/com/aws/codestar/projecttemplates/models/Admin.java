@@ -1,6 +1,5 @@
 package com.aws.codestar.projecttemplates.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -12,19 +11,17 @@ import java.io.Serializable;
 public class Admin implements HibernateObject, Serializable {
 
     @Id
-    @Column(name = "user_id")
-    @JsonIgnore
+    @Column(name = "id")
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Admin() {
     }
 
     @Override
-    @JsonIgnore
     public long getId() {
         return id;
     }
