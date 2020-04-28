@@ -30,7 +30,19 @@ public class Major implements HibernateObject {
     @JoinColumn(name = "faculty")
     private Faculty faculty;
 
+    @OneToMany(mappedBy = "major", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Class> classes = new ArrayList<>();
+
     public Major() {
+    }
+
+    public List<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
     }
 
     public Faculty getFaculty() {
