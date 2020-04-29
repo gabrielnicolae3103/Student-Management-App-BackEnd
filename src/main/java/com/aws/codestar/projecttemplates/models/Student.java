@@ -20,7 +20,7 @@ public class Student implements HibernateObject, Serializable {
 
     @Column(name = "student_identification_number")
     @Id
-    private long sin;
+    private Long sin;
 
     @NotNull
     @Column(name = "father_initial")
@@ -35,7 +35,8 @@ public class Student implements HibernateObject, Serializable {
     @JoinColumn(name = "grupa")
     private Grupa grupa;
 
-    @OneToMany(mappedBy = "aClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Grade> grades = new ArrayList<>();
 
     public Student() {
@@ -57,11 +58,11 @@ public class Student implements HibernateObject, Serializable {
         this.user = user;
     }
 
-    public long getSin() {
+    public Long getSin() {
         return sin;
     }
 
-    public void setSin(long sin) {
+    public void setSin(Long sin) {
         this.sin = sin;
     }
 
@@ -91,12 +92,12 @@ public class Student implements HibernateObject, Serializable {
 
     @Override
     @JsonIgnore
-    public long getId() {
+    public Long getId() {
         return getUser().getId();
     }
 
     @Override
-    public void setId(long id) {
+    public void setId(Long id) {
         getUser().setId(id);
     }
 

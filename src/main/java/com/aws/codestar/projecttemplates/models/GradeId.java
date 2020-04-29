@@ -9,32 +9,32 @@ import java.util.Objects;
 public class GradeId implements Serializable {
 
     @Column(name = "student_identification_number")
-    private long sin;
+    Long sin;
 
     @Column(name = "class_id")
-    private long classId;
+    Long classId;
 
     public GradeId() {
     }
 
-    public GradeId(long sin, long classId) {
+    public GradeId(Long sin, Long classId) {
         this.sin = sin;
         this.classId = classId;
     }
 
-    public long getSin() {
+    public Long getSin() {
         return sin;
     }
 
-    public void setSin(long sin) {
+    public void setSin(Long sin) {
         this.sin = sin;
     }
 
-    public long getClassId() {
+    public Long getClassId() {
         return classId;
     }
 
-    public void setClassId(long classId) {
+    public void setClassId(Long classId) {
         this.classId = classId;
     }
 
@@ -43,8 +43,8 @@ public class GradeId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GradeId gradeId = (GradeId) o;
-        return sin == gradeId.sin &&
-                classId == gradeId.classId;
+        return sin.equals(gradeId.sin) &&
+                classId.equals(gradeId.classId);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.aws.codestar.projecttemplates.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -13,9 +14,8 @@ import java.util.List;
 public class Class implements HibernateObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     @NotNull
@@ -41,7 +41,8 @@ public class Class implements HibernateObject {
     @NotNull
     private Major major;
 
-    @OneToMany(mappedBy = "aClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clasa", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Grade> grades = new ArrayList<>();
 
     public Class() {
@@ -55,11 +56,11 @@ public class Class implements HibernateObject {
         this.grades = grades;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
