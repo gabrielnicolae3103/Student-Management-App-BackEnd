@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "class")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Class {
+public class Class implements HibernateObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
