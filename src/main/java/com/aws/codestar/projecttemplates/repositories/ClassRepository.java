@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
-    List<Class> findAllByYearAndMajorName(int year, String name);
+    List<Class> findAllByYearAndMajorId(int year, long id);
 }

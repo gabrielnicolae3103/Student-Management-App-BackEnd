@@ -27,7 +27,7 @@ public class ClassController extends HibernateObjectController<Class> {
 
     @GetMapping("/year/{year}/major/{major}")
     List<Class> findAllByYearAndMajorName(@PathVariable(value = "year") int year,
-                                          @PathVariable(value = "major") String major) {
-        return classRepository.findAllByYearAndMajorName(year, major);
+                                          @PathVariable(value = "major") long major) {
+        return classRepository.findAllByYearAndMajorId(year, major);
     }
 }
