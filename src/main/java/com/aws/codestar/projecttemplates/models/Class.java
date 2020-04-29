@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "class")
@@ -39,7 +41,18 @@ public class Class implements HibernateObject {
     @NotNull
     private Major major;
 
+    @OneToMany(mappedBy = "aClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Grade> grades = new ArrayList<>();
+
     public Class() {
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 
     public long getId() {

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -33,7 +35,18 @@ public class Student implements HibernateObject, Serializable {
     @JoinColumn(name = "grupa")
     private Grupa grupa;
 
+    @OneToMany(mappedBy = "aClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Grade> grades = new ArrayList<>();
+
     public Student() {
+    }
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 
     public User getUser() {
