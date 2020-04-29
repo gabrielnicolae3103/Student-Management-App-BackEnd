@@ -45,11 +45,12 @@ public class HibernateObjectController<T extends HibernateObject> {
     @PutMapping(value = "/{id}")
     ResponseEntity<T> update(@PathVariable(value = "id") long id,
                                     @RequestBody T object) {
-        T updatedObject = service.update(id, object);
-
         if(!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
+
+        T updatedObject = service.update(id, object);
+
         if(updatedObject == null)
             return ResponseEntity.badRequest().build();
         return ResponseEntity.ok(updatedObject);
