@@ -1,7 +1,9 @@
 package com.aws.codestar.projecttemplates.controllers;
 
 import com.aws.codestar.projecttemplates.models.Grade;
+import com.aws.codestar.projecttemplates.repositories.ClassRepository;
 import com.aws.codestar.projecttemplates.repositories.GradeRepository;
+import com.aws.codestar.projecttemplates.repositories.StudentRepository;
 import com.aws.codestar.projecttemplates.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +15,20 @@ import java.util.List;
 @RequestMapping("/grades")
 public class GradeController {
 
+    ClassRepository classRepository;
+    StudentRepository studentRepository;
     GradeRepository gradeRepository;
     GradeService gradeService;
 
     @Autowired
-    public GradeController(GradeRepository gradeRepository, GradeService gradeService) {
+    public GradeController(GradeRepository gradeRepository,
+                           GradeService gradeService,
+                           ClassRepository classRepository,
+                           StudentRepository studentRepository) {
         this.gradeRepository = gradeRepository;
         this.gradeService = gradeService;
+        this.classRepository = classRepository;
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping
@@ -44,10 +53,30 @@ public class GradeController {
     ResponseEntity<Grade> modifyGrade(@PathVariable(value = "sin") long sin,
                                       @PathVariable(value = "classId") long classId,
                                       @RequestBody Grade grade) {
-        if(!gradeRepository.existsByStudentSinAndClasaId(sin, classId))
-            return ResponseEntity.notFound().build();
+        if(sin != grade.getStudent().getSin() || classId != grade.getClasa().getId())
+            return ResponseEntity.badRequest().build();
+        if(!gradeRepository.existsByStudentSinAndClasaId(sin, classId)) {
+            Grade newGrade = new Grade();
+            if(!classRepository.existsById(classId) || !studentRepository.existsById(sin))
+                return ResponseEntity.badRequest().build();
+            newGrade.setClasa(grade.getClasa());
+            newGrade.setStudent(grade.getStudent());
+            newGrade.setGrade(grade.getGrade());
+            return ResponseEntity.ok(gradeRepository.save(newGrade));
+        }
         Grade grade1 = gradeRepository.findByStudentSinAndClasaId(sin, classId);
         grade1.setGrade(grade.getGrade());
         return ResponseEntity.ok(gradeRepository.save(grade1));
     }
+
+    @GetMapping("/student/{sin}/class/{classId}")
+    ResponseEntity<Grade> getGrade(@PathVariable(value = "sin") long sin,
+                                   @PathVariable(value = "classId") long classId) {
+        if(!gradeRepository.existsByStudentSinAndClasaId(sin, classId)) {
+            return ResponseEntity.notFound().build();
+        }
+        Grade grade1 = gradeRepository.findByStudentSinAndClasaId(sin, classId);
+        return ResponseEntity.ok(grade1);
+    }
+
 }
